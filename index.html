@@ -22,8 +22,24 @@
   <link rel="stylesheet" href="style.css">
 
   <noscript><style>#enter-overlay{display:none}</style></noscript>
+
+  <script>
+    document.documentElement.classList.add("js");
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        var boot = document.getElementById("boot-overlay");
+        if (boot) boot.classList.add("done");
+        var enter = document.getElementById("enter-overlay");
+        if (enter) enter.removeAttribute("inert");
+      }, 4000);
+    });
+  </script>
 </head>
 <body>
+
+  <div id="boot-overlay" class="boot-overlay" aria-hidden="true">
+    <pre id="boot-log" class="boot-log"></pre>
+  </div>
 
   <button id="enter-overlay" type="button" aria-label="Enter site and play music">
     <span class="enter-text">[ click to enter ]</span>

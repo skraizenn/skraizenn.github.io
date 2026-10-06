@@ -2,7 +2,8 @@
 
 ## Workflow
 - Prefers to delegate end-to-end: gives a short open-ended goal ("analyze the directory, how can I improve my page") and expects the agent to plan, list concrete issues/fixes, then apply them without needing step-by-step direction. Confidence: 0.6
-- Approves proposed work with a minimal affirmative ("yes") rather than writing detailed requirements — treat prior proposals as the spec once confirmed. Confidence: 0.6
+- Approves proposed work with a minimal affirmative ("yes") rather than writing detailed requirements — treat prior proposals as the spec once confirmed. Confidence: 0.7
+- Selects work by quoting one line-item verbatim from a list of suggestions the agent offered (e.g. "add Boot/loading sequence before the enter screen") and expects the agent to design and implement the details itself. Confidence: 0.7
 
 ## Preferences
 - Is based in Europe/Istanbul and prefers time/clock features on personal sites to show his own fixed timezone (pinned IANA zone like `Europe/Istanbul`, DST-correct) rather than the visitor's local time. Confidence: 0.7

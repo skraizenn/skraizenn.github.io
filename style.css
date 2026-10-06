@@ -121,6 +121,50 @@ body {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.boot-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  background-color: #000000;
+  padding: 28px;
+  transition: opacity 0.8s ease;
+}
+
+.js .boot-overlay {
+  display: block;
+}
+
+.boot-overlay.done {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.boot-log {
+  margin: 0;
+  font-family: monospace;
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.boot-log::after {
+  content: "▋";
+  margin-left: 2px;
+  color: var(--text-main);
+  animation: blink 1s steps(1) infinite;
+}
+
+.boot-overlay.done .boot-log::after {
+  content: "";
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
 #enter-overlay {
   position: fixed;
   inset: 0;

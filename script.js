@@ -3,11 +3,38 @@ const music = document.getElementById("bg-music");
 const volumeSlider = document.getElementById("volume-slider");
 const muteBtn = document.getElementById("mute-btn");
 const clock = document.getElementById("clock");
+const bootOverlay = document.getElementById("boot-overlay");
+const bootLog = document.getElementById("boot-log");
 const content = document.querySelectorAll(".volume-control, .profile-card");
 
 music.volume = 0.5;
 
 content.forEach((el) => el.setAttribute("inert", ""));
+overlay.setAttribute("inert", "");
+
+const bootLines = [
+  "> boot sequence initiated",
+  "> loading assets ......... ok",
+  "> initializing audio ..... ok",
+  "> mounting interface ..... ok",
+  ">",
+  "> ready.",
+];
+
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const bootStep = reduceMotion ? 0 : 300;
+
+bootLines.forEach((line, i) => {
+  setTimeout(() => {
+    bootLog.textContent += (i === 0 ? "" : "\n") + line;
+  }, bootStep * (i + 1));
+});
+
+setTimeout(() => {
+  bootOverlay.classList.add("done");
+  overlay.removeAttribute("inert");
+  setTimeout(() => bootOverlay.remove(), 800);
+}, bootStep * bootLines.length + (reduceMotion ? 0 : 550));
 
 function updateClock() {
   const now = new Date();
