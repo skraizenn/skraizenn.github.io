@@ -2,11 +2,27 @@ const overlay = document.getElementById("enter-overlay");
 const music = document.getElementById("bg-music");
 const volumeSlider = document.getElementById("volume-slider");
 const muteBtn = document.getElementById("mute-btn");
+const clock = document.getElementById("clock");
 const content = document.querySelectorAll(".volume-control, .profile-card");
 
 music.volume = 0.5;
 
 content.forEach((el) => el.setAttribute("inert", ""));
+
+function updateClock() {
+  const now = new Date();
+  clock.dateTime = now.toISOString();
+  clock.textContent = now.toLocaleTimeString("en-GB", {
+    timeZone: "Europe/Istanbul",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    timeZoneName: "short",
+  });
+}
+
+updateClock();
+setInterval(updateClock, 1000);
 
 function enter() {
   if (overlay.classList.contains("hidden")) return;
