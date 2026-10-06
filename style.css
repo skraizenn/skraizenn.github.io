@@ -43,6 +43,13 @@ body {
   align-items: center;
   box-shadow: 0 0 50px -10px rgba(0, 0, 0, 0.8), 0 0 30px 0 rgba(255, 255, 255, 0.02);
   position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.profile-card.is-tilting {
+  transition: transform 0.1s ease-out;
 }
 
 .avatar-box {
@@ -220,6 +227,9 @@ body {
 }
 
 .clock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: rgba(14, 14, 16, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
@@ -231,6 +241,13 @@ body {
   font-family: monospace;
   font-size: 0.8rem;
   letter-spacing: 0.08em;
+}
+
+.greeting {
+  color: var(--text-main);
+}
+
+.clock-time {
   font-variant-numeric: tabular-nums;
 }
 

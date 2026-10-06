@@ -48,7 +48,10 @@
   <audio id="bg-music" src="sarki.mp3" loop preload="none"></audio>
 
   <div class="hud">
-    <time id="clock" class="clock" aria-label="Local time"></time>
+    <div class="clock">
+      <span id="greeting" class="greeting"></span>
+      <time id="clock" class="clock-time" aria-label="Local time"></time>
+    </div>
 
     <div class="volume-control">
       <svg id="mute-btn" class="vol-icon" viewBox="0 0 24 24" role="button" tabindex="0" aria-pressed="false" aria-label="Toggle mute">

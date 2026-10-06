@@ -3,6 +3,7 @@ const music = document.getElementById("bg-music");
 const volumeSlider = document.getElementById("volume-slider");
 const muteBtn = document.getElementById("mute-btn");
 const clock = document.getElementById("clock");
+const greeting = document.getElementById("greeting");
 const bootOverlay = document.getElementById("boot-overlay");
 const bootLog = document.getElementById("boot-log");
 const content = document.querySelectorAll(".volume-control, .profile-card");
@@ -36,6 +37,14 @@ setTimeout(() => {
   setTimeout(() => bootOverlay.remove(), 800);
 }, bootStep * bootLines.length + (reduceMotion ? 0 : 550));
 
+function getGreeting(hour) {
+  if (hour < 5) return "Good night";
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  if (hour < 22) return "Good evening";
+  return "Good night";
+}
+
 function updateClock() {
   const now = new Date();
   clock.dateTime = now.toISOString();
@@ -46,6 +55,15 @@ function updateClock() {
     second: "2-digit",
     timeZoneName: "short",
   });
+
+  const hour = Number(
+    new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Europe/Istanbul",
+      hour: "2-digit",
+      hour12: false,
+    }).format(now)
+  );
+  greeting.textContent = getGreeting(hour);
 }
 
 updateClock();
@@ -82,3 +100,28 @@ muteBtn.addEventListener("keydown", (e) => {
     toggleMute();
   }
 });
+
+const card = document.querySelector(".profile-card");
+const canTilt =
+  card &&
+  window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+  !reduceMotion;
+
+if (canTilt) {
+  const maxTilt = 10;
+  const clamp = (v) => Math.max(-1, Math.min(1, v));
+
+  card.classList.add("is-tilting");
+
+  window.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const dx = clamp((e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2));
+    const dy = clamp((e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2));
+    card.style.transform = `perspective(900px) rotateX(${(-dy * maxTilt).toFixed(2)}deg) rotateY(${(dx * maxTilt).toFixed(2)}deg)`;
+  });
+
+  document.addEventListener("mouseleave", () => {
+    card.classList.remove("is-tilting");
+    card.style.transform = "";
+  });
+}
